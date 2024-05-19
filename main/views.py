@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from main.models import Product, Category, Contact
 
@@ -15,6 +15,18 @@ def home(request):
     }
 
     return render(request, 'main/home.html', context)
+
+
+def product_pk(request, pk, page=None, per_page=None):
+    obj = get_object_or_404(Product, pk=pk)
+    context = {
+        "object": obj,
+        "pagination": bool(per_page),
+        "per_page": per_page,
+        "page": page
+    }
+
+    return render(request, 'main/product_pk.html', context)
 
 
 # def index(request):
