@@ -72,9 +72,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'djangoorm',  # Название БД
+        'USER': 'postgres',  # Пользователь для подключения
+        'PASSWORD': '123',  # Пароль для этого пользователя
+        'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД
+        'PORT': 5432,  # Порт, на котором работает сервер БД
     }
 }
 
