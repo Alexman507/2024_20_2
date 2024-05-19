@@ -27,4 +27,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "phone", "message", "time")
+    list_display = ("id", "name", "phone", "message", "created_at")

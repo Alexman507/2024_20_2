@@ -1,13 +1,20 @@
 from django.shortcuts import render
 
-from main.models import Article
+from main.models import Product, Category, Contact
 
 
 # Create your views here.
-def index(request):
-    # students_list = Student.objects.all()
-    context = {}
-    return render(request, 'main/index.html')
+def home(request):
+    products_list = Product.objects.all()
+    # Product.objects.all().delete()
+    #
+    #
+    context = {
+        'object_list': products_list,
+        'title': 'Каталог'
+    }
+
+    return render(request, 'main/home.html', context)
 
 
 # def index(request):
