@@ -29,6 +29,24 @@ def product_pk(request, pk, page=None, per_page=None):
     return render(request, 'main/product_pk.html', context)
 
 
+def pagination(request, page, per_page):
+    len_product = len(Product.objects.all())
+    if len_product % per_page != 0:
+        page_count = [x + 1 for x in range((len_product // per_page) + 1)]
+    else:
+        page_count = [x + 1 for x in range((len_product // per_page))]
+
+    product_list = Product.objects.all()[per_page * (page - 1): per_page * page]
+
+    context = {
+        "product_list": product_list,
+        "page": page,
+        "per_page": per_page,
+        "page_count": page_count
+    }
+
+    return render(request, 'main/per_page.html', context)
+
 # def index(request):
 #     if request.method == 'POST':
 #         name = request.POST.get('name')
