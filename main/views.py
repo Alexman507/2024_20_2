@@ -52,11 +52,11 @@ def pagination(request, page, per_page):
 
 
 def contacts(request):
-    number = len(Order.objects.all())
+    number = len(Contact.objects.all())
     if number > 5:
-        contacts_list = Order.objects.all()[number - 5: number + 1]
+        contacts_list = Contact.objects.all()[number - 5: number + 1]
     else:
-        contacts_list = Order.objects.all()
+        contacts_list = Contact.objects.all()
 
     context = {
         'object_list': contacts_list,

@@ -9,18 +9,29 @@
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
                     <table class="table table-striped">
+                        {% for object in object_list %}
+
                         <tr>
-                            <td class="w-25">Страна</td>
-                            <td>USA</td>
+                            <td class="w-25">Отдел/ контактное лицо</td>
+                            <td>{{object.name}}</td>
                         </tr>
                         <tr>
                             <td class="w-25">ИНН</td>
-                            <td>91-1144442</td>
+                            <td>{{object.inn}}</td>
                         </tr>
                         <tr>
                             <td class="w-25">Адрес</td>
-                            <td>Redmond,WA,98052-6399</td>
+                            <td>{{object.address}}</td>
                         </tr>
+                        <tr>
+                            <td class="w-25">Контактный номер</td>
+                            <td>{{object.phone}}</td>
+                            </tr>
+                        <tr>
+                            <td class="w-25"></td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
                     </table>
                 </div>
             </div>
