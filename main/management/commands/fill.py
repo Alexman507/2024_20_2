@@ -3,7 +3,7 @@ import json
 from django.core.management import BaseCommand
 from django.db import connection
 
-from main.models import Category, Product
+from main.models import Category, Product, Contact, Order
 
 
 class Command(BaseCommand):
@@ -32,6 +32,28 @@ class Command(BaseCommand):
                     products.append(item)
         return products
 
+    @staticmethod
+    def json_read_contacts():
+        contacts = []
+        with open('main/data/main_data.json', 'r', encoding='utf-8') as file:
+            data = json.load(file)
+
+            for item in data:
+                if item.get('model') == "main.contact":
+                    contacts.append(item)
+        return contacts
+
+    @staticmethod
+    def json_read_orders():
+        orders = []
+        with open('main/data/main_data.json', 'r', encoding='utf-8') as file:
+            data = json.load(file)
+
+            for item in data:
+                if item.get('model') == "main.order":
+                    orders.append(item)
+        return orders
+
     def handle(self, *args, **options):
         with connection.cursor() as cursor:
             cursor.execute(f"TRUNCATE TABLE main_category RESTART IDENTITY CASCADE;")
@@ -45,6 +67,8 @@ class Command(BaseCommand):
         # Создайте списки для хранения объектов
         product_list = []
         category_list = []
+        contact_list = []
+        order_list = []
 
         # Обходим все значения категорий из фиктсуры для получения информации об одном объекте
         for category in Command.json_read_categories():
@@ -70,3 +94,25 @@ class Command(BaseCommand):
 
             # Создаем объекты в базе с помощью метода bulk_create()
         Product.objects.bulk_create(product_list)
+
+        for contact in Command.json_read_contacts():
+            contact_list.append(
+                Contact(pk=contact['pk'], name=contact['fields']['name'],
+                        phone=contact['fields']['phone'],
+                        inn=contact['fields']['price'],
+                        address=contact['fields']['address'],
+                        ))
+
+            # Создаем объекты в базе с помощью метода bulk_create()
+        Contact.objects.bulk_create(contact_list)
+
+        for order in Command.json_read_orders():
+            order_list.append(
+                Order(pk=order['pk'], name=order['fields']['name'],
+                      phone=order['fields']['phone'],
+                      message=order['fields']['message'],
+                      create_at=order['fields']['create_at'],
+                      ))
+
+            # Создаем объекты в базе с помощью метода bulk_create()
+        Order.objects.bulk_create(order_list)
