@@ -47,6 +47,10 @@ def pagination(request, page, per_page):
 
     return render(request, 'main/per_page.html', context)
 
+
+def category(request, pk):
+    pass
+
 # def index(request):
 #     if request.method == 'POST':
 #         name = request.POST.get('name')
