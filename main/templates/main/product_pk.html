@@ -1,3 +1,4 @@
+{% extends 'main/base.html'%}
 {% load static %}
 {% load my_tags %}
 {% block content %}
@@ -5,9 +6,7 @@
 <div class="row text-right">
     <div class="col-6">
         <div class="card mb-3 box-shadow">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Изображение товара</h4>
-            </div>
+
             <div class="card-body">
                 <img src="{{object.preview |media_filter}}" class="card-img-top" alt={{object.name}}>
 
@@ -21,20 +20,16 @@
 
         <div class="card mb-3 box-shadow">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Описание товара</h4>
+                <h4 class="my-0 font-weight-normal">Информация</h4>
             </div>
 
 
             <div class="card-body">
                 <h5 class="card-title">
-                    <div style="color: orange"><b>{{object | title}}</b></div>
+                    <div style="color: black"><b>{{object | title}}</b></div>
                 </h5>
                 <p class="card-text">
-                    {% if object.id == 1 %}
-                <div style="color: red">Осталось мало! Спешите!</div>
-                {% else %}
-                <span class="text-muted">*чем раньше купите - тем раньше доставим :) <br></span>
-                {% endif %}
+
 
                 <br>
                 <b>Наименование: </b>{{object.name}}
@@ -47,9 +42,9 @@
                 <br><br>
                 <small class="text-body-secondary">
 
-                    Продажи: {{object.created_at}}
+                    Последний привоз: {{object.created_at}}
                     <br>
-                    Последнее изменение: {{object.updated_at}}
+                    Наличие уточнять на складе :))0)
 
 
                 </small>
