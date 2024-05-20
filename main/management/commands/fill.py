@@ -85,11 +85,13 @@ class Command(BaseCommand):
         # Обходим все значения продуктов из фиктсуры для получения информации об одном объекте
         for product in Command.json_read_products():
             product_list.append(
-                Product(pk=product['pk'], name=product['fields']['name'],
+                Product(pk=product['pk'],
+                        name=product['fields']['name'],
                         description=product['fields']['description'],
                         price=product['fields']['price'],
                         category=Category.objects.get(pk=product['fields']['category']),
-                        preview=product['fields']['preview'], created_at=product['fields']['created_at'],
+                        preview=product['fields']['preview'],
+                        created_at=product['fields']['created_at'],
                         updated_at=product['fields']['updated_at']))
 
             # Создаем объекты в базе с помощью метода bulk_create()
