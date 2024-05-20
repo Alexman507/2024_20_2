@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.shortcuts import render, get_object_or_404
 
-from main.models import Product, Category, Contact
+from main.models import Product, Category, Contact, Order
 
 
 # Create your views here.
@@ -52,11 +52,11 @@ def pagination(request, page, per_page):
 
 
 def contacts(request):
-    number = len(Contact.objects.all())
+    number = len(Order.objects.all())
     if number > 5:
-        contacts_list = Contact.objects.all()[number - 5: number + 1]
+        contacts_list = Order.objects.all()[number - 5: number + 1]
     else:
-        contacts_list = Contact.objects.all()
+        contacts_list = Order.objects.all()
 
     context = {
         'object_list': contacts_list,
@@ -68,11 +68,11 @@ def contacts(request):
         phone = request.POST.get('phone')
         message = request.POST.get('message')
 
-        info = {'time': (datetime.now()).strftime('%Y-%m-%dT%H:%M'),
+        info = {'created_at': (datetime.now()).strftime('%Y-%m-%dT%H:%M'),
                 'name': name, 'phone': phone, 'message': message
                 }
 
-        Contact.objects.create(**info)
+        Order.objects.create(**info)
 
     return render(request, 'main/contacts.html', context)
 
