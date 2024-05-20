@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, get_object_or_404
 
 from main.models import Product, Category, Contact
@@ -48,8 +50,30 @@ def pagination(request, page, per_page):
     return render(request, 'main/per_page.html', context)
 
 
-def category(request, pk):
-    pass
+def contacts(request):
+    number = len(Contact.objects.all())
+    if number > 5:
+        contacts_list = Contact.objects.all()[number - 5: number + 1]
+    else:
+        contacts_list = Contact.objects.all()
+
+    context = {
+        'object_list': contacts_list,
+        'title': 'Контакты'
+    }
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+
+        info = {'time': (datetime.now()).strftime('%Y-%m-%dT%H:%M'),
+                'name': name, 'phone': phone, 'message': message
+                }
+
+        Contact.objects.create(**info)
+
+    return render(request, 'main/contacts.html', context)
 
 # def index(request):
 #     if request.method == 'POST':
