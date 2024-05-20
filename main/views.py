@@ -8,8 +8,9 @@ from main.models import Product, Category, Contact
 # Create your views here.
 def home(request):
     products_list = Product.objects.all()
+    category_list = Category.objects.all()
     # Product.objects.all().delete()
-    #
+    # Category.objects.all().delete()
     #
     context = {
         'object_list': products_list,

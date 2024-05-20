@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from django.contrib import admin
-from main.models import Category, Product, Contact
+from main.models import Category, Product, Contact, Order
 
 """
 Для категорий выводит **id** и **наименование** в список отображения, 
@@ -27,4 +27,11 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "phone", "message", "created_at")
+    list_display = ("id", "name", "phone", "inn", "address",)
+    search_fields = ("id", "name", "phone", "inn", "address",)
+
+
+@admin.register(Order)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "phone", "message", "created_at",)
+    search_fields = ("id", "name", "phone", )

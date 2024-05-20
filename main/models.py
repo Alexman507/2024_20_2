@@ -66,8 +66,8 @@ class Contact(models.Model):
     """
     name = models.CharField(max_length=50, verbose_name="Название/Имя", help_text="Введите название подразделения или укажите контактное лицо", )
     phone = models.CharField(max_length=20, verbose_name="Телефон", help_text="Введите телефон", )
-    inn = models.CharField(max_length=12, verbose_name="ИНН", help_text="Введите ИНН", )
-    address = models.CharField(max_length=100, verbose_name="Адрес", help_text="Введите адрес", )
+    inn = models.CharField(default="Не указан", max_length=12, verbose_name="ИНН", help_text="Введите ИНН", )
+    address = models.CharField(default="Не указан", max_length=100, verbose_name="Адрес", help_text="Введите адрес", )
 
     class Meta:
         verbose_name = "Контакт"
@@ -89,7 +89,7 @@ class Order(models.Model):
     name = models.CharField(max_length=50, verbose_name="Имя", help_text="Введите имя", )
     phone = models.CharField(max_length=20, verbose_name="Телефон", help_text="Введите телефон", )
     message = models.TextField(verbose_name="Сообщение", help_text="Введите сообщение", **NULLABLE)
-    created_at = models.DateTimeField(default=timezone.now, **NULLABLE, verbose_name="Дата отправки",
+    created_at = models.DateTimeField(default=timezone.now, verbose_name="Дата отправки",
                                       help_text="Введите дату создания", )
 
     class Meta:
